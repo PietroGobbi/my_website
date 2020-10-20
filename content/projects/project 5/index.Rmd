@@ -31,12 +31,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
 
+
+```{r}
 library(knitr)
-```
-
-```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
 include_graphics("CVPG.jpeg")
 
 ```

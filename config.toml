@@ -95,7 +95,7 @@ disqusShortname = ""
       title = "Trump's approval margins"
       subtitle = "What are the polls telling us?"
       image = "pic01.jpg"
-      url = "prejects/project 1"
+      url = "content/projects/project 1"
 
     [[params.tiles.showcase]]
       title = "Gender pay gap"

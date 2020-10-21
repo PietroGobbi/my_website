@@ -96,12 +96,14 @@ disqusShortname = ""
       subtitle = "What are the polls telling us?"
       image = "pic01.jpg"
       url = "projects/project 1"
+      url = "projects/project1"
 
     [[params.tiles.showcase]]
       title = "Gender pay gap"
       subtitle = "Analysis of a database"
       image = "pic02.jpg"
       url = "projects/project 2"
+      url = "projects/project2"
 
     [[params.tiles.showcase]]
       title = "The inverted Yield Curve"

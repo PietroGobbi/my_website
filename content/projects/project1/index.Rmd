@@ -1,0 +1,84 @@
+---
+title: "index"
+author: "Pietro Gobbi"
+date: "10/20/2020"
+output: html_document
+---
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, include=FALSE}
+
+
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+
+library(infer)
+library(wbstats)
+
+```
+
+# Trump's Approval Margins
+
+
+
+```{r, cache=TRUE}
+
+approval_polllist <- read_csv('https://projects.fivethirtyeight.com/trump-approval-data/approval_polllist.csv') 
+
+approval_polllist<- approval_polllist%>%
+  mutate(modeldate=mdy(modeldate),startdate=mdy(startdate),enddate=mdy(enddate),createddate=mdy(createddate),timestamp=mdy_hms("09-27-2020 00:45:20"))
+
+# Use `lubridate` to fix dates, as they are given as characters.
+```
+
+
+
+```{r trump_margins, echo=FALSE, out.width="100%"}
+
+approval_polllist_weekly<- approval_polllist%>%
+  select(enddate,approve,disapprove)%>%
+  group_by(year=year(enddate),week=week(enddate))%>%
+  mutate(net_approval_rate=approve - disapprove)%>%
+  summarise(average_net_approval_rate=mean(net_approval_rate), SD_a=sd(net_approval_rate),count_a=n(),SE_a=SD_a/sqrt(count_a),lower_ci=average_net_approval_rate-1.96*SE_a, upper_ci=average_net_approval_rate+1.96*SE_a)
+
+
+ggplot(approval_polllist_weekly, aes(x=week,y=average_net_approval_rate, color=factor(year)))+
+  geom_point()+
+  geom_line()+
+  geom_line(aes(x=week,y=lower_ci, color=factor(year)))+
+  geom_line(aes(x=week,y=upper_ci, color=factor(year)))+
+  geom_hline(yintercept=0, color="orange")+
+  labs(title="Estimating Net Approval(approve-disapprove)for Donald Trump",subtitle="Weekly average of all polls",x="Week of the year",y="Average Net Approval(%)")+
+  facet_wrap(~year)+
+  theme_bw()+
+  scale_fill_manual(values = c("#f8766d", "#7cae00", "#00bfc4", "#c77cff"))+
+  scale_color_manual(values = c("#f8766d", "#7cae00", "#00bfc4", "#c77cff"))+
+  scale_y_continuous(breaks = seq(-20.0, 7.5, 2.5), limits = c(-20.0, 7.5))+
+  scale_x_continuous(breaks = seq(0,52,13))+
+  geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci, fill = factor(year), color = factor(year)), alpha =.1, linetype = 1)+
+  theme(legend.position = "none")
+  
+```

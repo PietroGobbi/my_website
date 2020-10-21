@@ -95,31 +95,31 @@ disqusShortname = ""
       title = "Trump's approval margins"
       subtitle = "What are the polls telling us?"
       image = "pic01.jpg"
-      url = "projects/project 1/index"
+      url = "projects/project 1"
 
     [[params.tiles.showcase]]
       title = "Gender pay gap"
       subtitle = "Analysis of a database"
       image = "pic02.jpg"
-      url = "projects/project 2/index"
+      url = "projects/project 2"
 
     [[params.tiles.showcase]]
       title = "The inverted Yield Curve"
       subtitle = "Historical data"
       image = "pic03.jpg"
-      url = "projects/project 3/index"
+      url = "projects/project 3"
 
     [[params.tiles.showcase]]
       title = "Buy the Dip"
       subtitle = "Trading strategies after a stock price tumbles"
       image = "pic04.jpg"
-      url = "projects/project 4/index"
+      url = "projects/project 4"
 
     [[params.tiles.showcase]]
       title = "More about me"
       subtitle = "CV"
       image = "pic05.jpg"
-      url = "projects/project 5/index"
+      url = "projects/project 5"
 
   #  [[params.tiles.showcase]]
    #   title = "Etiam"
